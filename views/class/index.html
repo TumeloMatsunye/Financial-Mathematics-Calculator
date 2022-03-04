@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Personal Finance Calculator</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/cdn/styles/main.css">
+    <script defer src="index.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <script src="../../routes/Routes.js"></script>
+    
+</head>
+<style>
+    .bottom
+    {width: 100%;
+    height: 20%;
+    position:absolute;
+}
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Full-width input fields */
+    input[type=text],
+    input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    /* Set a style for all buttons */
+    button {
+        background-color:dimgray;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+    /* Extra styles for the cancel button */
+    .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+    }
+
+    /* Center the image and position the close button */
+    .imgcontainer {
+        text-align: center;
+        margin: 24px 0 12px 0;
+        position: relative;
+    }
+
+    img.avatar {
+        width: 40%;
+        border-radius: 50%;
+    }
+
+    .container {
+        padding: 16px;
+    }
+
+    span.psw {
+        float: right;
+        padding-top: 16px;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+        padding-top: 60px;
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto 15% auto;
+        /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 80%;
+        /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button (x) */
+    .close {
+        position: absolute;
+        right: 25px;
+        top: 0;
+        color: #000;
+        font-size: 35px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color:#000 ;
+        cursor: pointer;
+    }
+
+    /* Add Zoom Animation */
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
+
+    @-webkit-keyframes animatezoom {
+        from {
+            -webkit-transform: scale(0)
+        }
+
+        to {
+            -webkit-transform: scale(1)
+        }
+    }
+
+    @keyframes animatezoom {
+        from {
+            transform: scale(0)
+        }
+
+        to {
+            transform: scale(1)
+        }
+    }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+        span.psw {
+            display: block;
+            float: none;
+        }
+
+        .cancelbtn {
+            width: 100%;
+        }
+    }
+</style>
+<body>
+    <!--Site Heading-->
+    <header>
+  <div class="collapse bg-dark" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <button class="btn d-inline-flex align-items-center collapsed bg-dark text-white" data-bs-toggle="collapse"
+        aria-expanded="false" data-bs-target="#contents-collapse77" aria-controls="contents-collapse">User
+        Account</button>
+    <div class="list-unstyled ps-3 collapse" id="contents-collapse77">
+        <div class="col-sm-3">
+            <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+            <br>
+            <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Signup</button>
+            <br>
+        </div>
+    </div>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+            <button class="bg-dark"onclick="location.href='/class/api/log'" type="button">Log</button>>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white"></a></li>
+            <li><a href="#" class="text-white"></a></li>
+            <li><a href="#" class="text-white"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+   
+        <strong>Personal Finance Calculator</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+</header>
+    <!--Site Heading End-->
+
+
+
+    <p>Choose a Financial formula below: </p>
+    <section>
+        <!--  Collapse button formulas -->
+        <div class="page" id="redPage">
+            <a id="answr1" name="answr1"></a>
+            <button class="btn d-inline-flex align-items-center collapsed bg-dark text-white" data-bs-toggle="collapse"
+                aria-expanded="false" data-bs-target="#contents-collapse3" aria-controls="contents-collapse3">Compound
+                Interest</button>
+            <div class="list-unstyled ps-3 collapse" id="contents-collapse3">
+                <math>
+                    A = P(1+<sup>i</sup>/n )<sup>nt</sup>
+                </math>
+                <form action="/class/api/compound_interest" method="post">
+                    <div>
+                        <label for="PresentValue">Principal amount(P):</label>
+                        <input type="text" id="Pamount" name="Pamount">
+                    </div>
+                    <div>
+                        <label for="Interest">Interest (i):</label>
+                        <input type="text" id="i" name="i">
+                    </div>
+                    <div>
+                        <label for="Duration">Duration (t):</label>
+                        <input type="text" id="t" name="t">
+                    </div>
+                    <div>
+                        <label for="compoundinterval">Compound Interval (n):</label>
+                        <input type="text" id="CI" name="CI">
+                    </div>
+                    <div class="button">
+                        <button type="submit">Get Answer</button>
+                    </div>
+
+                </form>
+            </div>
+
+
+            <button class="btn d-inline-flex align-items-center collapsed bg-dark text-white" data-bs-toggle="collapse"
+                aria-expanded="false" data-bs-target="#contents-collapse4" aria-controls="contents-collapse">Post Tax
+                Return</button>
+            <div class="list-unstyled ps-3 collapse" id="contents-collapse4">
+                <math>
+                    Post Tax Return = Interest rate - (Interest rate*tax rate)
+                </math>
+                <form action="/class/api/post_tax" method="post">
+
+                    <div>
+                        <label for="Interest">Interest rate:</label>
+                        <input type="text" id="i2" name="i2">
+                    </div>
+                    <div>
+                        <label for="taxInterest">Tax rate:</label>
+                        <input type="text" id="txrate1" name="txrate1">
+                    </div>
+                    <div class="button">
+                        <button type="submit">Get Answer</button>
+                    </div>
+                </form>
+            </div>
+
+            <button class="btn d-inline-flex align-items-center collapsed bg-dark text-white" data-bs-toggle="collapse"
+                aria-expanded="false" data-bs-target="#contents-collapse5"
+                aria-controls="contents-collapse">Inflation</button>
+            <div class="list-unstyled ps-3 collapse" id="contents-collapse5">
+                <math>
+                    Formula: Future amount = Present amount * (1+inflation rate) <sup>number of years</sup> </math>
+                <form action="/class/api/inflation" method="post">
+
+                    <div>
+                        <label for="Present amount">Present amount:</label>
+                        <input type="text" id="Pramount" name="Pramount">
+                    </div>
+                    <div>
+                        <label for="inflation rate">Inflation rate:</label>
+                        <input type="text" id="inflarate" name="inflarate">
+                    </div>
+                    <div>
+                        <label for="nyears">Number of years:</label>
+                        <input type="text" id="nyears" name="nyears">
+                    </div>
+                    <div class="button">
+                        <button type="submit">Get Answer</button>
+                    </div>
+                    <a id="answr1"></a>
+                </form>
+
+            </div>
+            <button class="btn d-inline-flex align-items-center collapsed bg-dark text-white" data-bs-toggle="collapse"
+                aria-expanded="false" data-bs-target="#contents-collapse6" aria-controls="contents-collapse">Purchasing
+                Power</button>
+            <div class="list-unstyled ps-3 collapse" id="contents-collapse6">
+                <math>
+                    Formula: Future value = Present value * (1+inflation rate) <sup>number of years</sup> </math>
+                <form action="/class/api/prpower" method="post">
+
+                    <div>
+                        <label for="Present amount">Present value:</label>
+                        <input type="text" id="Prvalue" name="Prvalue">
+                    </div>
+                    <div>
+                        <label for="inflation rate">Inflation rate:</label>
+                        <input type="text" id="inflarate" name="inflarate">
+                    </div>
+                    <div>
+                        <label for="nyears">Number of years:</label>
+                        <input type="text" id="nyears" name="nyears">
+                    </div>
+                    <div class="button">
+                        <button type="submit">Get Answer</button>
+                    </div>
+                </form>
+            </div>
+            <button class="btn d-inline-flex align-items-center collapsed bg-dark text-white" data-bs-toggle="collapse"
+                aria-expanded="false" data-bs-target="#contents-collapse7" aria-controls="contents-collapse">Effective
+                Annual Rate</button>
+            <div class="list-unstyled ps-3 collapse" id="contents-collapse7">
+                <math>
+                    Effective Annual Rate = ((1+(r/n))<sup>n</sup>)-1)*100
+
+                </math>
+                <form action="/class/api/effannrtn" method="post">
+
+                    <div>
+                        <label for="nominal return">nominal return (r):</label>
+                        <input type="text" id="nomReturn" name="nomReturn">
+                    </div>
+                    <div>
+                        <label for="compoundinterval">Compound interval (n):</label>
+                        <input type="text" id="comIntvl" name="comIntvl">
+                    </div>
+                    <div class="button">
+                        <button type="submit">Get Answer</button>
+                    </div>
+                </form>
+            </div>
+            <button class="btn d-inline-flex align-items-center collapsed bg-dark text-white" data-bs-toggle="collapse"
+                aria-expanded="false" data-bs-target="#contents-collapse8" aria-controls="contents-collapse">Rule of
+                72</button>
+            <div class="list-unstyled ps-3 collapse" id="contents-collapse8">
+                <math>
+                    Formula = 72/Interest rate
+                </math>
+                <form action="/class/api/ruleof72" method="post">
+
+                    <div>
+                        <label for="Interest rate">Interest rate (i):</label>
+                        <input type="text" id="Intrstrate" name="Intrstrate">
+                    </div>
+
+                    <div class="button">
+                        <button type="submit">Get Answer</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <button class="btn d-inline-flex align-items-center collapsed bg-dark text-white" data-bs-toggle="collapse"
+                aria-expanded="false" data-bs-target="#contents-collapse9"
+                aria-controls="contents-collapse">CAGR</button>
+            <div class="list-unstyled ps-3 collapse" id="contents-collapse9">
+                <math>
+                    CAGR=((FV/PV)<sup>(1/n)</sup>) - 1
+                </math>
+                <form action="/class/api/cagr" method="post">
+
+                    <div>
+                        <label for="FV">Ending Value (FV):</label>
+                        <input type="text" id="FV" name="FV">
+                    </div>
+                    <div>
+                        <label for="PV">Beginning Value (PV):</label>
+                        <input type="text" id="PV" name="PV">
+                    </div>
+                    <div>
+                        <label for="nyears">Duration in years (n):</label>
+                        <input type="text" id="nyears" name="nyears2">
+                    </div>
+                    <div class="button">
+                        <button type="submit">Get Answer</button>
+                    </div>
+                </form>
+            </div>
+            <button class="btn d-inline-flex align-items-center collapsed bg-dark text-white" data-bs-toggle="collapse"
+                aria-expanded="false" data-bs-target="#contents-collapse10" aria-controls="contents-collapse">Loan
+                EMI</button>
+            <div class="list-unstyled ps-3 collapse" id="contents-collapse10">
+                <math>
+                    EMI= (A*R)*(1+R) <sup>N</sup>/ ((1+R) <sup>N</sup>)-1)
+                </math>
+                <form action="/class/api/loanemi" method="post">
+
+                    <div>
+                        <label for="loan amouunt">Loan amount (A):</label>
+                        <input type="text" id="Lamnt" name="Lamnt">
+                    </div>
+                    <div>
+                        <label for="Intereste rate">Interest rate (R):</label>
+                        <input type="text" id="intrstrate" name="intrstrate">
+                    </div>
+                    <div>
+                        <label for="duration">Duration (N):</label>
+                        <input type="text" id="duration" name="N">
+                    </div>
+                    <div>
+                        <label for="duration">Interval (monthly,annual,quarterly):</label>
+                        <input type="text" id="intrvl" name="intrvl">
+                    </div>
+                    <div class="button">
+                        <button type="submit">Get Answer</button>
+                    </div>
+                </form>
+            </div>
+            <button class="btn d-inline-flex align-items-center collapsed bg-dark text-white" data-bs-toggle="collapse"
+                aria-expanded="false" data-bs-target="#contents-collapse11" aria-controls="contents-collapse">Future
+                Value of SIP</button>
+            <div class="list-unstyled ps-3 collapse" id="contents-collapse11">
+                <math>
+                    S = R((1+i)<sup>n</sup>-1/i) (1+i) </math>
+                <form action="/class/api/futureSIP" method="post">
+
+                    <div>
+                        <label for="Regular Monthly investment">Regular Monthly investment (R):</label>
+                        <input type="text" id="RMI" name="RMI">
+                    </div>
+                    <div>
+                        <label for="Intereste rate">Interest rate (i):</label>
+                        <input type="text" id="intrstrate" name="intrstrate">
+                    </div>
+                    <div>
+                        <label for="duration">Duration (N):</label>
+                        <input type="text" id="duration4" name="N">
+                    </div>
+                    <div>
+                        <label for="duration">Interval (monthly,annual,quarterly):</label>
+                        <input type="text" id="intrvl" name="intrvl">
+                    </div>
+                    <div class="button">
+                        <button type="submit">Get Answer</button>
+                    </div>
+                </form>
+            </div>
+
+            <button class="btn d-inline-flex align-items-center collapsed bg-dark text-white" data-bs-toggle="collapse"
+                aria-expanded="false" data-bs-target="#contents-collapse12" aria-controls="contents-collapse">Liquidity
+                Ratio</button>
+            <div class="list-unstyled ps-3 collapse" id="contents-collapse12">
+                <math>
+                    Formula:Liquidity Ratio = Total liquid assets/Total current debt
+                </math>
+                <form action="/class/api/lqratio" method="post">
+
+                    <div>
+                        <label for="assest">Total liquid assets:</label>
+                        <input type="text" id="assets" name="assets">
+                    </div>
+                    <div>
+                        <label for="debt">Total current debt:</label>
+                        <input type="text" id="debt" name="debt">
+                    </div>
+                    <div class="button">
+                        <button type="submit" id="answer10">Answer</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- End of formula buttons -->
+    <section>
+        <!-- first Modal  -->
+        <div id="id01" class="modal">
+
+            <form class="modal-content animate" action="/class/api/login" method="post">
+                <div class="imgcontainer">
+                    <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                        title="Close Modal">&times;</span>
+
+                </div>
+                <div class="container">
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname" required>
+
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+
+                    <button type="submit">Login</button>
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                </div>
+
+                <div class="container" style="background-color:#f1f1f1">
+                    <button type="button" onclick="document.getElementById('id01').style.display='none'"
+                        class="cancelbtn">Cancel</button>
+                    <span class="psw">Forgot <a href="#">password?</a></span>
+                </div>
+            </form>
+        </div>
+        <!-- Second Modal -->
+        <div id="id02" class="modal">
+            <form class="modal-content animate" action="/class/api/signup" method="post">
+                <div class="imgcontainer">
+                    <span onclick="document.getElementById('id02').style.display='none'" class="close"
+                        title="Close Modal">&times;</span>
+
+                </div>
+
+                <div class="container">
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname2" required>
+
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw2" required>
+
+                    <button type="submit">Signup</button>
+
+                </div>
+
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+        crossorigin="anonymous"></script>
+    <script>
+
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        // Get the modal
+        var modal = document.getElementById('id02');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        // Get the modal
+        var modal = document.getElementById('id03');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>
