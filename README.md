@@ -3,6 +3,6 @@ This web application is for doing financial calculations. A user of this applica
 
 1. Authour
 -----------
-Tumelo Matsunye 1056760
+Tumelo Matsunye 
 
 
